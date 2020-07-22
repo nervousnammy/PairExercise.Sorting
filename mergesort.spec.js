@@ -4,7 +4,7 @@ let splitArray1 = [1,2,10]
 let splitArray2 = [1,9]
 
 describe('Split Array function', function() {
-  xit('is able to split an array into two halves', function() {
+  it('is able to split an array into two halves', function() {
     const splitArray = split(testArray1)
     expect(splitArray.length).toEqual(2)
     expect(splitArray[0]).toEqual([1,2,8,3])
