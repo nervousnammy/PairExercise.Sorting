@@ -1,4 +1,4 @@
-// let testArr = [1,2,8,3,5,0,5,1,9]
+let testArr2 = [1,2,8,3,5,0,5,1,9]
 
 function split(wholeArray) {
   let array = wholeArray
@@ -13,8 +13,6 @@ function split(wholeArray) {
   return [firstHalf, secondHalf];
 }
 
-//let splitArray1 = [1,2,10]
-//let splitArray2 = [1,9]
 function merge(arr1, arr2) {
   let returnArray = [];
   const totalLength = arr1.length + arr2.length;
@@ -42,26 +40,26 @@ function merge(arr1, arr2) {
 //let testArray2 = [1,2,8,3,5,0,5,1,9]
 function mergeSort(array) {
   //Splitting into single elements
-  console.log('ARGUMENT ARRAY --->', array)
-  let singleElements = [].push(array);
-  console.log('singleElements --->', singleElements)
+  let singleElements = [];
+  singleElements.push(array);
+
+  //Spliting into singleElements
   while (singleElements.length !== array.length) {
-    singleElements.forEach((miniArray, index) => {
-      if (miniArray.length > 1) {
-        let arr = split(miniArray)
-        if (arr.length === 1) {
-          singleElements.splice(index, 1, arr)
-        } else {
-        singleElements.splice(index, 1, arr[0], arr[1]);
-        }
+    console.log('LENGTH OF ARRAY--->', array.length)
+    console.log('LENGTH OF SINGLE ELEMENTS--->', singleElements.length)
+    for (let i = 0; i < singleElements.length; i++) {
+      if (singleElements[i].length > 1) {
+        let arr = split(singleElements[i])
+        if (arr.length ===1) {
+          singleElements.splice(i, 1, arr)
+        } else {singleElements.splice(i, 1, arr[0], arr[1])};
       }
-    });
+    }
   }
 
   //You should have array of single elements here
   let sortedArray = singleElements;
-  //this is equal to [[1],[2],[3],[4],[5],[6]]
-  //Joining back into single array
+  console.log('SORTED ARRAY', sortedArray)
   while (sortedArray.length !== 1) {
     sortedArray.forEach((miniArray, index) => {
       if (sortedArray[index + 1]) {
@@ -75,3 +73,5 @@ function mergeSort(array) {
   }
   return sortedArray;
 }
+
+console.log(mergeSort(testArr2))
