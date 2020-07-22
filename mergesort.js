@@ -14,24 +14,26 @@ function split(wholeArray) {
 }
 
 function merge(arr1, arr2) {
+  let array1 = arr1;
+  let array2 = arr2;
   let returnArray = [];
   const totalLength = arr1.length + arr2.length;
   for (let i = 0; i < totalLength; i++) {
-    if (arr1 && arr2) {
+    if (array1.length > 0 && array2.length > 0) {
       //Sorting
-      if (arr1[0] > arr2[0]) {
-        returnArray.push(arr2.shift());
+      if (array1[0] > array2[0]) {
+        let pushValue = array2.shift()
+        returnArray.push(pushValue);
       } else {
-        returnArray.push(arr1.shift());
+        let pushValue = array1.shift()
+        returnArray.push(pushValue);
       }
-    } else if (arr1) {
-      returnArray.concat(arr1);
-      return returnArray;
-    } else if (arr2) {
-      returnArray.concat(arr2);
+    } else if (array1.length !== 0) {
+      returnArray = returnArray.concat(array1);
       return returnArray;
     } else {
-      continue;
+      returnArray = returnArray.concat(array2);
+      return returnArray;
     }
   }
   return returnArray;
@@ -42,15 +44,13 @@ function mergeSort(array) {
   //Splitting into single elements
   let singleElements = [];
   singleElements.push(array);
-
+  const arrLength = array.length
   //Spliting into singleElements
-  while (singleElements.length !== array.length) {
-    console.log('LENGTH OF ARRAY--->', array.length)
-    console.log('LENGTH OF SINGLE ELEMENTS--->', singleElements.length)
+  while (singleElements.length !== arrLength) {
     for (let i = 0; i < singleElements.length; i++) {
       if (singleElements[i].length > 1) {
         let arr = split(singleElements[i])
-        if (arr.length ===1) {
+        if (arr.length === 1) {
           singleElements.splice(i, 1, arr)
         } else {singleElements.splice(i, 1, arr[0], arr[1])};
       }
@@ -59,19 +59,22 @@ function mergeSort(array) {
 
   //You should have array of single elements here
   let sortedArray = singleElements;
-  console.log('SORTED ARRAY', sortedArray)
+  let sortedArrayLength = sortedArray.length;
   while (sortedArray.length !== 1) {
-    sortedArray.forEach((miniArray, index) => {
-      if (sortedArray[index + 1]) {
-        sortedArray.splice(
-          index,
-          2,
-          merge(sortedArray[index], sortedArray[index + 1])
-        );
+    for(let i = 0; i < Math.floor(sortedArrayLength/2); i++) {
+      if (sortedArray[i+1] !== undefined) {
+        // console.log('i --->', i)
+        // console.log('sortedArray --->', sortedArray)
+        // console.log('sortedArray LENGTH --->', sortedArrayLength)
+        let mergedArray = merge(sortedArray[i], sortedArray[i+1])
+        // console.log('MERGED ARRAY', mergedArray)
+        sortedArray.splice(i , 2, mergedArray)
       }
-    });
+      sortedArrayLength = sortedArray.length
+    }
   }
   return sortedArray;
 }
 
-console.log(mergeSort(testArr2))
+const heyo = mergeSort(testArr2)
+console.log('FINAL ANSWER--->', heyo)
